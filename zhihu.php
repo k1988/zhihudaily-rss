@@ -6,7 +6,7 @@
 
 /* config */
 $MAX_ITEMS = 20;
-$MAX_DAYS = 2;
+$MAX_DAYS = 1;
 
 /**********************************************************************/
 $str = '';
@@ -35,6 +35,7 @@ function fetch_item($item, $time) {
 }
 
 function fetch_day($day) {
+	global $days_fetched;
     global $items_fetched;
     global $MAX_ITEMS;
     $str = '';
@@ -66,7 +67,7 @@ $str .= 'xmlns:slash="http://purl.org/rss/1.0/modules/slash/"' . "\n";
 $str .= '>' . "\n";
 $str .= '<channel>' . "\n";
 $str .= '<title>知乎日报</title>' . "\n";
-$url = ($_SERVER['HTTPS'] == 'off' ? 'http://' : 'https://')  . $_SERVER['SERVER_NAME'] . ($_SERVER["SERVER_PORT"] == 80 ? '' : ':' . $_SERVER["SERVER_PORT"]) . $_SERVER["REQUEST_URI"]; 
+$url = ((empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') ? 'http://' : 'https://')  . $_SERVER['SERVER_NAME'] . ($_SERVER["SERVER_PORT"] == 80 ? '' : ':' . $_SERVER["SERVER_PORT"]) . $_SERVER["REQUEST_URI"]; 
 $path = dirname($url);
 $str .= '<atom:link href="' . $url . '" rel="self" type="application/rss+xml" />' . "\n";
 $str .= '<link>http://daily.zhihu.com/</link>' . "\n";
